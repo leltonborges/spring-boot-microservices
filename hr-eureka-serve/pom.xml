@@ -8,17 +8,19 @@
         <version>2.3.4.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>br.com.ms</groupId>
-    <artifactId>hr-eureka-serve</artifactId>
+    <groupId>com.devsuperior</groupId>
+    <artifactId>hr-eureka-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>hr-eureka-serve</name>
-    <description>hr-eureka-serve</description>
+    <name>hr-eureka-server</name>
+    <description>Eureka Server</description>
+
     <properties>
         <java.version>11</java.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <spring-cloud.version>2021.0.0</spring-cloud.version>
+        <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -29,8 +31,15 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
+
     <dependencyManagement>
         <dependencies>
             <dependency>

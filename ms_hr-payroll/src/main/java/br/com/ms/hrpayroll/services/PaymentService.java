@@ -2,6 +2,7 @@ package br.com.ms.hrpayroll.services;
 
 import br.com.ms.hrpayroll.entities.Payment;
 import br.com.ms.hrpayroll.entities.Worker;
+import br.com.ms.hrpayroll.feignclients.WorkerFeignClients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -14,18 +15,12 @@ import java.util.Map;
 @Service
 public class PaymentService {
 
-    @Value("${hr-worker.host}")
-    private String urlWorker;
-
     @Autowired
-    private RestTemplate restTemplate;
+    private WorkerFeignClients workerFeignClients;
 
     public Payment getInstancePayment(Long workerId, Integer days){
-        Map<String, String> uriVariables = new HashMap<>();
-        uriVariables.put("id", workerId+"");
 
-        Worker worker = restTemplate
-                .getForObject(urlWorker+"/workers/{id}", Worker.class, uriVariables);
+        Worker worker = workerFeignClients.findById(workerId).getBody();
         return new Payment(worker.getName(), worker.getDailyIncome(), days);
     }
 }

@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  db-woker-pg12:
+    image: postgres:12-alpine
+    container_name: db-woker
+    environment:
+      POSTGRES_PASSWORD: 1234567
+      POSTGRES_DB: "db_hr_worker"
+    networks:
+      - hr-net
+    ports:
+      - 5430:5432
+  
+  hr-user-pg12:
+    image: postgres:12-alpine
+    container_name: db-user
+    environment:
+      POSTGRES_PASSWORD: 1234567
+      POSTGRES_DB: "db_hr_user"
+    networks:
+      - hr-net
+    ports:
+      - 5440:5432
+
+
+networks:
+  hr-net:
+    driver: bridge

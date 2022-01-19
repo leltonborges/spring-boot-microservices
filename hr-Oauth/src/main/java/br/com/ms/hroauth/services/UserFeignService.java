@@ -5,13 +5,15 @@ import br.com.ms.hroauth.feignClients.UserFeignClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class UserFeignService {
+public class UserFeignService implements UserDetailsService {
     @Autowired
     private UserFeignClient userFeignClient;
 
@@ -25,6 +27,16 @@ public class UserFeignService {
         }
         logger.info("Email found: "+ email);
         return user;
+    }
 
+    @Override
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        Optional<User> user = Optional.of(userFeignClient.findByEmail(userName).getBody());
+        if(user.equals(null)){
+            logger.info("Email not found: "+ userName);
+            throw new UsernameNotFoundException("Email not found");
+        }
+        logger.info("Email found: "+ userName);
+        return user.get();
     }
 }

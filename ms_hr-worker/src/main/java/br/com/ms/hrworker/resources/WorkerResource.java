@@ -1,7 +1,6 @@
 package br.com.ms.hrworker.resources;
 
 import br.com.ms.hrworker.entities.Worker;
-import br.com.ms.hrworker.repositories.WorkerRepository;
 import br.com.ms.hrworker.services.WorkerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

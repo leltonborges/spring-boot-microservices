@@ -38,6 +38,12 @@ public class WorkerResource {
 
         logger.info("PORT = " + env.getProperty("local.server.port"));
 
+        try {
+            Thread.sleep(3000l);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         return ResponseEntity
                 .ok()
                 .body(workerService.findById(id)

@@ -22,7 +22,6 @@ services:
       - hr-net
     ports:
       - 5440:5432
-
   hr-config-server:
     build:
       context: ./
@@ -35,6 +34,20 @@ services:
       PORT: 8888
     ports:
       - 8888:8888
+  
+  hr-eureka-server:
+    build:
+      context: ./
+      dockerfile: hr-eureka-server.dockerfile
+    image: lelton/hr-eureka-server:v1
+    container_name: hr-eureka-config-server
+    networks:
+      - hr-net
+    environment:
+      PORT: 8761
+    ports:
+      - 8761:8761
+
     
     
     

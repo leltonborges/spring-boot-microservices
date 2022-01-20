@@ -90,6 +90,35 @@ services:
       - db-woker-pg12
       - hr-eureka-server
       - hr-config-server
+  hr-payroll:
+    build:
+      context: ./
+      dockerfile: hr-payroll.dockerfile
+    image: lelton/hr-payroll:v1
+    container_name: hr-payroll
+    networks:
+      - hr-net
+    environment:
+      <<: *eureka-and-config    
+    depends_on:
+      - db-woker-pg12
+      - hr-eureka-server
+      - hr-config-server
+
+  hr-oauth:
+    build:
+      context: ./
+      dockerfile: hr-oauth.dockerfile
+    image: lelton/hr-oauth:v1
+    container_name: hr-oauth
+    networks:
+      - hr-net
+    environment:
+      <<: *eureka-and-config    
+    depends_on:
+      - db-woker-pg12
+      - hr-eureka-server
+      - hr-config-server
 
 networks:
   hr-net:

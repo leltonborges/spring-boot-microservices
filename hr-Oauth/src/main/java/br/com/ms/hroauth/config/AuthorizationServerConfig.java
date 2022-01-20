@@ -20,10 +20,10 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    @Value("${oauth.client.name}")
+    @Value("${oauth.client.name:myappid}")
     private String CLIENT_NAME;
 
-    @Value("${oauth.client.secret}")
+    @Value("${oauth.client.secret:myappkey}")
     private String CLIENT_SECRET;
 
     @Autowired

@@ -47,11 +47,29 @@ services:
       PORT: 8761
     ports:
       - 8761:8761
-
-    
-    
-    
-
+  
+  hr-worker:
+    build:
+      context: ./
+      dockerfile: hr-worker.dockerfile
+    image: lelton/hr-worker:v1
+    container_name: hr-woker
+    networks:
+      - hr-net
+    environment:
+      HR_CONFIG_SERVER: hr-config-server
+      HR_CONFIG_PORT: 8888
+      HR_EUREKA_SERVER: hr-eureka-server
+      HR_EUREKA_PORT: 8761
+      DB_HOST: db-woker-pg12
+      DB_PORT: 5430
+      DB_NAME: db_hr_worker
+      DB_USER: postgres
+      DB_PASS: 1234567
+    depends_on:
+      - db-woker-pg12
+      - hr-eureka-server
+      - hr-config-server
 
 networks:
   hr-net:

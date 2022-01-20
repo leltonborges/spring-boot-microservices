@@ -23,6 +23,22 @@ services:
     ports:
       - 5440:5432
 
+  hr-config-server:
+    build:
+      context: ./
+      dockerfile: hr-config-server.dockerfile
+    image: lelton/hr-config-server:v1
+    container_name: hr-config-server
+    networks:
+      - hr-net
+    environment:
+      PORT: 8888
+    ports:
+      - 8888:8888
+    
+    
+    
+
 
 networks:
   hr-net:
